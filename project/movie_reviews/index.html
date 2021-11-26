@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.89.4" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Siyuan Feng">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Applying statistical analysis to identify characteristics of popular movie reviews, and predicted sentiment using machine learning methods.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://Siyuan09.github.io/project/movie_reviews/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#fc6f5c">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.76e69f7370e1e1222344c0109d841c44.css">
+
+  
+
+  
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://Siyuan09.github.io/project/movie_reviews/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Siyuan Feng">
+  <meta property="og:url" content="https://Siyuan09.github.io/project/movie_reviews/">
+  <meta property="og:title" content="Analysis of Movie Reviews on Douban.com | Siyuan Feng">
+  <meta property="og:description" content="Applying statistical analysis to identify characteristics of popular movie reviews, and predicted sentiment using machine learning methods."><meta property="og:image" content="https://Siyuan09.github.io/project/movie_reviews/featured.jpg">
+  <meta property="twitter:image" content="https://Siyuan09.github.io/project/movie_reviews/featured.jpg"><meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2019-11-23T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-11-23T00:00:00&#43;00:00">
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Analysis of Movie Reviews on Douban.com | Siyuan Feng</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Siyuan Feng</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>Resume</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article article-project py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container split-header">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <img class="img-fluid w-100" src="/project/movie_reviews/featured_huc16eded195f79625f69dc8db8b0d25cb_88918_680x500_fill_q90_lanczos_smart1.jpg" itemprop="image" alt="">
+        
+    </div>
+    <div class="col-lg-8">
+      <h1 itemprop="name" style="text-align: justify;">Analysis of Movie Reviews on Douban.com</h1>
+
+      
+
+      
+
+
+
+<meta content="2019-11-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2019-11-23 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Nov 23, 2019</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://Siyuan09.github.io/project/movie_reviews/&amp;text=Analysis%20of%20Movie%20Reviews%20on%20Douban.com" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://Siyuan09.github.io/project/movie_reviews/&amp;t=Analysis%20of%20Movie%20Reviews%20on%20Douban.com" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Analysis%20of%20Movie%20Reviews%20on%20Douban.com&amp;body=https://Siyuan09.github.io/project/movie_reviews/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://Siyuan09.github.io/project/movie_reviews/&amp;title=Analysis%20of%20Movie%20Reviews%20on%20Douban.com" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Analysis%20of%20Movie%20Reviews%20on%20Douban.com%20https://Siyuan09.github.io/project/movie_reviews/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://Siyuan09.github.io/project/movie_reviews/&amp;title=Analysis%20of%20Movie%20Reviews%20on%20Douban.com" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="margin-auto">
+      <div class="article-style" style="text-align: justify;width:800px; margin:0 auto;">
+        <p>Every time before I go to a movie, I will check the ratings and reviews of them online. It not only happens to me, but research shows that 91% of people regularly or occasionally read online movie reviews, and 84% trust them.</p>
+<p>The popularity of online movie reviews encourages many people to generate comments and share their watching experiences. However, when I scraped all the movie reviews for 16 movies from Douban, a Chinese version of IMDB, I found that on average, each movie has about 65,000 reviews, and each review contains about 37 words. The large volume of movie reviews makes it quite hard for users to go through all of them. Under this circumstance, what should we pay attention to when writing movie reviews so our comments can stand out?</p>
+<p><strong><em>Data Preprocessing</em></strong></p>
+<p>In the Douban community, users write their movie reviews, then everyone else has access to them and can click the like button if they do like them. In this case, movie reviews receiving more likes can be defined as more popular ones.</p>
+<p>The data scraped from the Douban website contains the Chinese name and English name of the movie, the date when the data was crawled, the username of people who wrote reviews, the comment (movie reviews) they generated, the star they gave for the movie, the date they wrote their reviews as well as the number of likes they received from other users.
+<img src="../../img/douban_data.jpg" alt="anything"></p>
+<p>Before we dive into the exploration analysis of the dataset, I would like to create some new features that may have an impact on the popularity of the movie reviews, in other words, the number of likes the movie reviews receive. According to my experience, the more information the movie reviews provide, the more helpful it will be for users to make decisions. Additionally, different attitudes of movie reviews may resonate differently with the audience, thus leading to the difference in popularity. What’s more, when writing the review, the choice of movies may also lead to an impact on popularity. Based on these hypotheses, I added some new features such as the length of the review, the duration between the time when the movie is released and the time when the review is written as well as the number of prior reviews.
+<img src="../../img/douban_data2.jpg" alt="anything"></p>
+<p><strong><em>Exploratory Data Analysis</em></strong></p>
+<p>From the scatter plot, we can find that the closer the time when writing a movie review is to the time when releasing the movie, the review is more likely to get a large number of likes. It is quite reasonable because when the movie is just released, it will get much attention, thus leading to its reviews going popular. However, what’s interesting is that if you have early access to the movie or the scripts and write reviews before the movie is released, the review is more likely to be popular.
+<img src="../../img/douban_fig1.jpg" alt="anything"></p>
+<p>From the bar plot, it is not hard to notice that the longer the movie review is, the larger number of likes it will get. It is also not hard to understand since the longer the review is, the more information it will provide, thus it will get more recognition. However, when the length exceeds around 150 words, the popularity will decrease as the length increases. It can also be explained that the movie review becomes more time-consuming and harder to understand when it is too long, so people may not be able to finish reading and find it helpful.
+<img src="../../img/douban_fig2.jpg" alt="anything"></p>
+<p>Next, I looked at the relationship between the number of prior reviews and the number of likes this review received. The scatter plot below showed that the fewer prior reviews there are, the review is more likely to receive a larger number of likes. It indicates that the review is more likely to be popular if it appears shortly after the movie is released or is written for those that have very few reviews because there are fewer ones to compete for attention.
+<img src="../../img/douban_fig3.jpg" alt="anything"></p>
+<p>According to my experience, when I search for movie reviews online, I want to look at the movie reviews that praise or criticize the movie because those will help me make decisions quicker. The scatter plot below showed that movie reviews with an extreme attitude are more likely to gain a greater number of likes, those reviews may attract people with the same attitude. What’s more, the negative review is more likely to go popular compared with positive review.
+<img src="../../img/douban_fig4.jpg" alt="anything"></p>
+<p>After looking at those visualizations, I had a better understanding of the relationships between those features and popularity. To make sure those relationships are robust, I ran a zero-inflated regression while controlling the movie to eliminate the impact brought by type or quality of different movies. Zero-inflated regression is used to model count data that has an excess of zero counts. The result still verified the relationships we explored above after we considered the impact introduced by the movies.
+<img src="../../img/douban_zeroinf.jpg" alt="anything"></p>
+<p><strong><em>Predicting the Attitude of Movie Reviews Using Sentiment Analysis</em></strong></p>
+<p>Looking at the regression results above, it is not hard to find that the relationship between the reviews’ attitudes and the popularity is statistically significant and the most important among all features. In this situation, the star gave by the reviewer indicated the attitude of their reviews. However, on some platforms, users may not be able to rate the movie but only express their ideas using texts. So predicting the attitude of movie reviews will help the platform identify potentially popular content and leverage the content to attract more attention and traffic.</p>
+<p>Here I didn’t use a third library called snownlp, which can directly analyze the Chinese text emotionally. The accuracy is not particularly ideal (0.69), and this method is not so pertinent to the movie review context. So I decided to train a predictive model using Star as the target variable in this scenario.</p>
+<p>The first step in data preparation is to transform the target variable into a binary variable, here I categorized 4, 5 stars as positive and labeled them as 1 otherwise as negative and labeled them as 0.</p>
+<p>Then I used jieba library to participle Chinese comment and a method called CountVectorizer() provided by Sklearn to create the word vector.
+<img src="../../img/douban_nlp.jpg" alt="anything"></p>
+<p>After all the preparation steps, I trained a Multinomial Naive Bayes model which is computationally efficient, easy to implement and frequently used in text classification problems on the data. Here is the performance of the model:
+<img src="../../img/douban_res.jpg" alt="anything"></p>
+<p>The model is trained under the context of movies, so it has better performance than the model built in the third-party library. Using this model, we can predict the attitude of any comments about movies to help service platforms as well as social media platforms to identify traffic and attract attentions. What&rsquo;s more, it can also help producers know the overall attitudes of the market as well as the key points consumers care about to provide insights for further strategies.</p>
+
+      </div>
+    </div>
+    
+
+    
+
+<div class="article-tags" style="width:800px; margin:0 auto;">
+  
+  <a class="badge badge-light" href="/tags/analytics/">Analytics</a>
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+  <a class="badge badge-light" href="/tags/sentiment-analysis/">Sentiment Analysis</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">NLP</a>
+  
+  <a class="badge badge-light" href="/tags/data-mining/">Data Mining</a>
+  
+  <a class="badge badge-light" href="/tags/unstructured-data/">Unstructured Data</a>
+  
+  <a class="badge badge-light" href="/tags/eda/">EDA</a>
+  
+  <a class="badge badge-light" href="/tags/zero-inflation-regression/">Zero-Inflation Regression</a>
+  
+  <a class="badge badge-light" href="/tags/python/">Python</a>
+  
+  <a class="badge badge-light" href="/tags/r/">R</a>
+  
+  <a class="badge badge-light" href="/tags/visualization/">Visualization</a>
+  
+</div>
+
+
+    
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person" style="width:800px; margin:0 auto;">
+    
+
+    <div class="media-body" style="width:800px; margin:0 auto;">
+      <h5 class="card-title" itemprop="name"><a href="https://Siyuan09.github.io">Siyuan Feng</a></h5>
+      
+      <div class="card-text" itemprop="description" style="text-align: justify;width:800px; margin:0 auto;">I am an insightful and passionate data-driven storyteller with experience in growth marketing, customer segmentation, budget optimization, predictive analytics in retailing and Internet industries.</div>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+          <li>
+            <a itemprop="sameAs" href="mailto:Siyuanfeng09@gmail.com" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/siyuanfeng/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/Siyuan09" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/files/cv.pdf" >
+              <i class="ai ai-cv"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    </div>
+
+    
+    
+    
+    </div>
+  </div>
+</article>
+
+
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academia.min.6b5ef1defaba396582a0072fe411caca.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  <div class="container">
+    
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

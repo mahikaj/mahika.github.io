@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualization on Siyuan Feng</title>
+    <link>https://Siyuan09.github.io/tags/visualization/</link>
+    <description>Recent content in Visualization on Siyuan Feng</description>
+    <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; {year}</copyright>
+    <lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://Siyuan09.github.io/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Baby Food Market Analysis - Tableau Dashboard</title>
+      <link>https://Siyuan09.github.io/project/babyfood/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://Siyuan09.github.io/project/babyfood/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Analysis of Movie Reviews on Douban.com</title>
+      <link>https://Siyuan09.github.io/project/movie_reviews/</link>
+      <pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://Siyuan09.github.io/project/movie_reviews/</guid>
+      <description>&lt;p&gt;Every time before I go to a movie, I will check the ratings and reviews of them online. It not only happens to me, but research shows that 91% of people regularly or occasionally read online movie reviews, and 84% trust them.&lt;/p&gt;
+&lt;p&gt;The popularity of online movie reviews encourages many people to generate comments and share their watching experiences. However, when I scraped all the movie reviews for 16 movies from Douban, a Chinese version of IMDB, I found that on average, each movie has about 65,000 reviews, and each review contains about 37 words. The large volume of movie reviews makes it quite hard for users to go through all of them. Under this circumstance, what should we pay attention to when writing movie reviews so our comments can stand out?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Data Preprocessing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the Douban community, users write their movie reviews, then everyone else has access to them and can click the like button if they do like them. In this case, movie reviews receiving more likes can be defined as more popular ones.&lt;/p&gt;
+&lt;p&gt;The data scraped from the Douban website contains the Chinese name and English name of the movie, the date when the data was crawled, the username of people who wrote reviews, the comment (movie reviews) they generated, the star they gave for the movie, the date they wrote their reviews as well as the number of likes they received from other users.
+&lt;img src=&#34;../../img/douban_data.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Before we dive into the exploration analysis of the dataset, I would like to create some new features that may have an impact on the popularity of the movie reviews, in other words, the number of likes the movie reviews receive. According to my experience, the more information the movie reviews provide, the more helpful it will be for users to make decisions. Additionally, different attitudes of movie reviews may resonate differently with the audience, thus leading to the difference in popularity. What’s more, when writing the review, the choice of movies may also lead to an impact on popularity. Based on these hypotheses, I added some new features such as the length of the review, the duration between the time when the movie is released and the time when the review is written as well as the number of prior reviews.
+&lt;img src=&#34;../../img/douban_data2.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Exploratory Data Analysis&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;From the scatter plot, we can find that the closer the time when writing a movie review is to the time when releasing the movie, the review is more likely to get a large number of likes. It is quite reasonable because when the movie is just released, it will get much attention, thus leading to its reviews going popular. However, what’s interesting is that if you have early access to the movie or the scripts and write reviews before the movie is released, the review is more likely to be popular.
+&lt;img src=&#34;../../img/douban_fig1.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From the bar plot, it is not hard to notice that the longer the movie review is, the larger number of likes it will get. It is also not hard to understand since the longer the review is, the more information it will provide, thus it will get more recognition. However, when the length exceeds around 150 words, the popularity will decrease as the length increases. It can also be explained that the movie review becomes more time-consuming and harder to understand when it is too long, so people may not be able to finish reading and find it helpful.
+&lt;img src=&#34;../../img/douban_fig2.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Next, I looked at the relationship between the number of prior reviews and the number of likes this review received. The scatter plot below showed that the fewer prior reviews there are, the review is more likely to receive a larger number of likes. It indicates that the review is more likely to be popular if it appears shortly after the movie is released or is written for those that have very few reviews because there are fewer ones to compete for attention.
+&lt;img src=&#34;../../img/douban_fig3.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;According to my experience, when I search for movie reviews online, I want to look at the movie reviews that praise or criticize the movie because those will help me make decisions quicker. The scatter plot below showed that movie reviews with an extreme attitude are more likely to gain a greater number of likes, those reviews may attract people with the same attitude. What’s more, the negative review is more likely to go popular compared with positive review.
+&lt;img src=&#34;../../img/douban_fig4.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;After looking at those visualizations, I had a better understanding of the relationships between those features and popularity. To make sure those relationships are robust, I ran a zero-inflated regression while controlling the movie to eliminate the impact brought by type or quality of different movies. Zero-inflated regression is used to model count data that has an excess of zero counts. The result still verified the relationships we explored above after we considered the impact introduced by the movies.
+&lt;img src=&#34;../../img/douban_zeroinf.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Predicting the Attitude of Movie Reviews Using Sentiment Analysis&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Looking at the regression results above, it is not hard to find that the relationship between the reviews’ attitudes and the popularity is statistically significant and the most important among all features. In this situation, the star gave by the reviewer indicated the attitude of their reviews. However, on some platforms, users may not be able to rate the movie but only express their ideas using texts. So predicting the attitude of movie reviews will help the platform identify potentially popular content and leverage the content to attract more attention and traffic.&lt;/p&gt;
+&lt;p&gt;Here I didn’t use a third library called snownlp, which can directly analyze the Chinese text emotionally. The accuracy is not particularly ideal (0.69), and this method is not so pertinent to the movie review context. So I decided to train a predictive model using Star as the target variable in this scenario.&lt;/p&gt;
+&lt;p&gt;The first step in data preparation is to transform the target variable into a binary variable, here I categorized 4, 5 stars as positive and labeled them as 1 otherwise as negative and labeled them as 0.&lt;/p&gt;
+&lt;p&gt;Then I used jieba library to participle Chinese comment and a method called CountVectorizer() provided by Sklearn to create the word vector.
+&lt;img src=&#34;../../img/douban_nlp.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;After all the preparation steps, I trained a Multinomial Naive Bayes model which is computationally efficient, easy to implement and frequently used in text classification problems on the data. Here is the performance of the model:
+&lt;img src=&#34;../../img/douban_res.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The model is trained under the context of movies, so it has better performance than the model built in the third-party library. Using this model, we can predict the attitude of any comments about movies to help service platforms as well as social media platforms to identify traffic and attract attentions. What&amp;rsquo;s more, it can also help producers know the overall attitudes of the market as well as the key points consumers care about to provide insights for further strategies.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HELOC Risk Prediction</title>
+      <link>https://Siyuan09.github.io/project/loan/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://Siyuan09.github.io/project/loan/</guid>
+      <description>&lt;p&gt;HELOC stands for Home Equity Line of Credit. It is a loan set up as a line of credit for some maximum draw, rather than for a fixed dollar amount. For example, using a standard mortgage you might borrow $200,000, which would be paid out in its entirety at closing. Using a HELOC instead, you receive the lender’s promise to advance you up to $200,000, in an amount and at a time of your choosing.&lt;/p&gt;
+&lt;p&gt;HELOCs are convenient for funding intermittent needs, such as paying off credit cards, making home improvements, or paying college tuition. Because the upfront costs are relatively low, many people choose HELOC as a source of funds. The challenge faced by financial institutions is how to identify the clients that are not able to repay the loan, which is critical for institutions to minimize the risk.  To overcome this challenge, an increasingly popular approach is machine learning-based methods, which are more time-efficient and cost-effective than manual annotation.&lt;/p&gt;
+&lt;p&gt;However, since financial institutions are required to provide explanations to clients about their rating, I built and compared several models, then chose the one with high prediction performance and interpretability using real-world financial datasets provided by FICO. Also, for users’ convenience, I created an interactive interface using Streamlit which also allows users to give clear explanations for the rating.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Data Preprocessing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The dataset contains HELOC applications made by real homeowners, in which RiskPerformance is the target binary variable. The label “Good” indicates that clients made payments without being more than 90 days overdue, whereas “Bad” indicates that they made payments 90 days past due or worse at least once over a period of 24 months since the credit account was opened. All the other predictor variables are quantitative or categorical variables representing a specific kind of trade feature of the homeowners. 
+&lt;img src=&#34;../../img/HELOC_data.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;After looking at the dataset, I found that there are three kinds of missing values in the dataset: “-9” represents No Bureau Record or No Investigation, “-8” represents No Usable/Valid Trades or Inquiries, and “-7” represents Condition not Met (e.g. No Inquiries, No Delinquencies). Since &amp;ldquo;-9&amp;rdquo; means there is no referencing information at all for all features and &amp;ldquo;-8&amp;rdquo; or &amp;ldquo;-7&amp;rdquo; means there are only several missing values, I decided to remove observations containing &amp;ldquo;-9&amp;rdquo; and replace &amp;ldquo;-8&amp;rdquo; and &amp;ldquo;-7&amp;rdquo; with the median. What’ more, I also turned categorical variables into dummy variables, removed obvious outliers as well as standardized all the values so the algorithms would work better on the dataset.
+&lt;img src=&#34;../../img/HELOC_code.jpg&#34; alt=&#34;anything&#34;&gt;
+&lt;img src=&#34;../../img/HELOC_code2.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;After checking the remaining observations, I found that there are 5125 “Bad” and 4733 “Good” values in the target variables, the dataset is quite balanced, so next, I began to build some models and tried to find the one with the best accuracy.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Modeling&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here I choose several models like SVM, Logistic Regression, KNN, Naïve Bayes, Decision Tree, Random Forests, Adaboosting, and Multi-Layer Perceptron. They are commonly used in classification problems and have their pros and cons. For example, LR is simple, fast, and interpretable but easy to underfit, while ensembling learning makes the model more robust and stable but reduces interpretability and is time-consuming.&lt;/p&gt;
+&lt;p&gt;Due to the high risk and loss brought by clients who are not able to repay the loan, I choose Recall combined with accuracy as the metrics to evaluate the model. After hyper-parameter tuning and comparing the performance between different models, I found that Random Forests outperforms others with the highest test accuracy and Recall of 72.16%, so I decided to use this model to predict and visualize the results to users.
+&lt;img src=&#34;../../img/HELOC_model.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Prediction Interpretation and Interface Design&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Considering that this model is mainly used by financial institutions to identify the clients with “Bad” Performance, I designed an interactive interface that users can simply input the historical information of the clients and get the prediction as well as the contribution of different features using Streamlit combined with LIME.
+&lt;img src=&#34;../../img/HELOC_interface.jpg&#34; alt=&#34;anything&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Users can click the checkbox to see the test data and choose a certain client by inputting the index or drag the sliders to input the values manually. Then the prediction result will show on the page along with the feature explanation. For example, here we choose the 10th client in the test data, the prediction of him is “Good”, and the feature “External Risk Estimate” contributes most to the “Good” prediction.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
